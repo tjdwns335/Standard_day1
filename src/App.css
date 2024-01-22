@@ -1,6 +1,19 @@
-.test {
+.organize {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.test {
+  width: 90%;
+  height: 50px;
+  border: 1px solid #000;
+  text-align: center;
+  line-height: 50px;
+  margin: 20px 0;
+}
+
+.test2 {
+  margin-top: 0;
 }

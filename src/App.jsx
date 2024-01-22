@@ -1,97 +1,80 @@
-import { useState } from "react";
-import "App.css";
+import React, { useState } from 'react'
+import "App.css"
 
 function App() {
-  const initialArray = ["apple", "banana", "cherry", "elderberry", "watermelon", "grape",];
-
+  const initialArray = ["apple", "banana", "cherry", "date", "elderberry"];
   const [array, setArray] = useState(initialArray);
   const [result, setResult] = useState("");
   const [query, setQuery] = useState("");
 
-  /** 함수들 */
-  const handleForEach = () => {
-    let tempResult = "";
-
-    array.forEach(function (fruit) {
-      tempResult += `${fruit} ,`;
+  const handleForeach = () => {
+    let tempResult = '';
+    array.forEach((fruit) => {
+      tempResult += `${fruit}, `
     });
-
     setResult(tempResult.slice(0, -2));
-  };
-
+  }
   const handleFilter = () => {
-    const filteredList = array.filter(function (fruit) {
-      // 얘를 필터링을 할지 말지를 결정한다.
-      if (fruit.includes(query)) {
-        return true;
-      } else {
-        return false; // 여기서 결정한다.
-      }
+    const filteredList = array.filter((fruit) => {
+      return fruit.includes(query) ? true : false;
     });
-    setResult(filteredList.join(", "));
-  };
-
+    setResult(filteredList.join(', '))
+  }
   const handleMap = () => {
-    // array를 대문자로 변환하여 출력
-    const mappedList = array.map(function (fruit) {
+    const mappedList = array.map((fruit) => {
       return fruit.toUpperCase();
     });
-    setResult(mappedList.join(", "));
-  };
-
+    setResult(mappedList.join(', '));
+  }
   const handleReduce = () => {
-    const reducedListText = array.reduce(function (acc, cur) {
-      return `${acc}, ${cur}`;
+    const reducedList = array.reduce((acc, cur) => {
+      return `${acc}, ${cur}`
     });
-    setResult(reducedListText);
-  };
-
+    setResult(reducedList);
+  }
   const handlePush = () => {
     if (!query) {
-      alert("값이 없습니다!");
+      alert('값이 없습니다!');
       return false;
     }
-
-    // input 태그에 입력한 값이 결과의 끝에 달라붙도록!
     const newArr = [...array, query];
     setArray(newArr);
-    setResult(newArr.join(", "));
-  };
-
+    setResult(newArr.join(', '));
+  }
   const handlePop = () => {
     const newArr = [...array];
     newArr.pop();
     setArray(newArr);
-    setResult(newArr.join(", "));
-  };
+    setResult(newArr.join(', '))
+  }
 
   return (
-    <div className="test">
+    <div className='organize'>
       <h1>Standard반 배열 API</h1>
+      <input
+        type="text"
+        value={query}
+        placeholder='Enter text'
+        onChange={(e) => {
+          setQuery(e.target.value);
+        }}
+      />
       <div>
-        <input
-          value={query}
-          onChange={function (e) {
-            setQuery(e.target.value);
-          }}
-        />
+        <button onClick={handleForeach}>Foreach</button>
+        <button onClick={handleFilter}>Filter</button>
+        <button onClick={handleMap}>Map</button>
+        <button onClick={handleReduce}>Reduce</button>
+        <button onClick={handlePush}>Push</button>
+        <button onClick={handlePop}>Pop</button>
       </div>
-      <div>
-        <button onClick={handleForEach}>forEach</button>
-        <button onClick={handleFilter}>filter</button>
-        <button onClick={handleMap}>map</button>
-        <button onClick={handleReduce}>reduce</button>
-        <button onClick={handlePush}>push</button>
-        <button onClick={handlePop}>pop</button>
+      <div className='test'>
+        <strong>원본배열</strong> : {array.join(", ")}
       </div>
-      <div>
-        <strong>원본 배열</strong> : {array.join(", ")}
+      <div className='test test2'>
+        <strong>Result</strong> : {result}
       </div>
-      <div>
-        <strong>결과물</strong> : {result}
-      </div>
-    </div>
-  );
+    </div >
+  )
 }
 
-export default App;
+export default App
