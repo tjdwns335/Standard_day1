@@ -9,8 +9,8 @@ function App() {
 
   const handleForeach = () => {
     let tempResult = '';
-    array.forEach((fruit) => {
-      tempResult += `${fruit}, `
+    array.forEach((fruit, index) => {
+      tempResult += ` ${index} : ${fruit}, `
     });
     setResult(tempResult.slice(0, -2));
   }
@@ -47,6 +47,43 @@ function App() {
     setArray(newArr);
     setResult(newArr.join(', '))
   }
+  const handleSlice = () => {
+    setResult(array.slice(1, -1).join(', '));
+  }
+  const handleSplice = () => {
+    const newArr = [...array];
+    newArr.splice(2, 2, "kiwi", "lime");
+    setArray(newArr);
+    setResult(newArr.join(', '))
+  }
+  const handleIndexOf = () => {
+    let temp = array.indexOf(query);
+    if (!array.indexOf(query)) {
+      setResult(-1);
+    }
+    setResult(temp);
+  }
+  const handleIncludes = () => {
+    const includesResult = array.includes(query);
+    setResult(includesResult.toString());
+  }
+
+  const handleFind = () => {
+    const foundList = array.find((fruit) => fruit === query);
+    setResult(foundList || "Not Found");
+  }
+  const handleSome = () => {
+    const someResult = array.some((fruit) => fruit.includes(query))
+    setResult(someResult.toString());
+  }
+  const handleEvery = () => {
+    const everyResult = array.every((fruit) => fruit.length > 5);
+    setResult(everyResult.toString());
+  }
+  const handleSort = () => {
+    setResult(array.sort().join(', '))
+  }
+
 
   return (
     <div className='organize'>
@@ -66,6 +103,14 @@ function App() {
         <button onClick={handleReduce}>Reduce</button>
         <button onClick={handlePush}>Push</button>
         <button onClick={handlePop}>Pop</button>
+        <button onClick={handleSlice}>Slice</button>
+        <button onClick={handleSplice}>Splice</button>
+        <button onClick={handleIndexOf}>IndexOf</button>
+        <button onClick={handleIncludes}>Includes</button>
+        <button onClick={handleFind}>Find</button>
+        <button onClick={handleSome}>Some</button>
+        <button onClick={handleEvery}>Every</button>
+        <button onClick={handleSort}>Sort</button>
       </div>
       <div className='test'>
         <strong>원본배열</strong> : {array.join(", ")}
