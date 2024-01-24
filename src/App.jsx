@@ -57,11 +57,8 @@ function App() {
     setResult(newArr.join(', '))
   }
   const handleIndexOf = () => {
-    let temp = array.indexOf(query);
-    if (!array.indexOf(query)) {
-      setResult(-1);
-    }
-    setResult(temp);
+    const index = array.indexOf(query);
+    setResult(index.toString());
   }
   const handleIncludes = () => {
     const includesResult = array.includes(query);
@@ -69,7 +66,7 @@ function App() {
   }
 
   const handleFind = () => {
-    const foundList = array.find((fruit) => fruit === query);
+    const foundList = array.find((fruit) => fruit.includes(query));
     setResult(foundList || "Not Found");
   }
   const handleSome = () => {
@@ -77,12 +74,18 @@ function App() {
     setResult(someResult.toString());
   }
   const handleEvery = () => {
-    const everyResult = array.every((fruit) => fruit.length > 5);
+    const everyResult = array.every((fruit) => fruit.length > 2);
     setResult(everyResult.toString());
   }
   const handleSort = () => {
-    setResult(array.sort().join(', '))
+    const sorted = [...array].sort();
+    setArray(sorted);
+    setResult(sorted.join(", "));
   }
+  const handleJoin = () => {
+    const joined = array.join(", ");
+    setResult(joined);
+  };
 
 
   return (
@@ -111,6 +114,7 @@ function App() {
         <button onClick={handleSome}>Some</button>
         <button onClick={handleEvery}>Every</button>
         <button onClick={handleSort}>Sort</button>
+        <button onClick={handleJoin}>Join</button>
       </div>
       <div className='test'>
         <strong>원본배열</strong> : {array.join(", ")}
